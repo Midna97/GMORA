@@ -50,4 +50,8 @@ class Recipe extends Model
             'user_id' => 'int',
         ];
     }
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

@@ -7,11 +7,12 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ImageController;
 
 Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->group(
     function(){
-        Route::get('/user', [UserController::class,'index'])->middleware('roles:Administrador');
+        Route::get('/user', [UserController::class,'index'])->middleware('role:Administrador');
         Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
         Route::post('/user',[UserController::class,'store']);
         Route::get('/recipe/{id}',[RecipeController::class,'show']);
@@ -22,5 +23,6 @@ Route::middleware('auth:sanctum')->group(
         Route::get('/role/{id}',[RoleController::class,'show']);
         Route::get('/role',[RoleController::class,'index']);
         Route::post('/role',[RoleController::class,'store']);
+        Route::post('/image',[ImageController::class,'store']);
     }
 );

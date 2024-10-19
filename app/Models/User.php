@@ -22,7 +22,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function hasRole($role){
+        return $this->role && $this->role->role === $role;
+    }
 
 
     /**
@@ -33,7 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'role_id',
+       
     ];
 
     /**
@@ -47,5 +56,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function images (){
+        return $this->morphMany(Image::class,'imageable');
     }
 }
